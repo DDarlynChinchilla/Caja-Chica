@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja Chica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #a5e1f0;
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('00.jpg');
+            background-repeat: no-repeat; 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #03393d;
+            font-size: 2.5em; 
+        }
+        .description {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px; 
+            color: #0f4549;
+        }
+        .container {
+            background: #f7f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 60px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            max-width: 1235px;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav button {
+            margin: 0 10px;
+            padding: 8px; 
+            background-color: #064106;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px; 
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        nav button:hover {
+            background-color: #0a6116;
+            transform: translateY(-2px);
+        }
+        .restart-button {
+            width: 60px;
+            height: 60px;
+            background-image: url('https://scontent.fgua1-2.fna.fbcdn.net/v/t39.30808-6/238234597_6699464363412281_610497918958556330_n.png?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=wu8k5dVf05wQ7kNvgFTU4Oc&_nc_ht=scontent.fgua1-2.fna&oh=00_AYBmMsEwc-uViwOb3vGwk8jq-02Cql8_5zGuRV1pD0-LzA&oe=67034CEE');
+            background-size: cover;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .restart-button:hover {
+            transform: scale(1.1);
+        }
+        .tab {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        form {
+            display: grid;
+            gap: 5px; 
+        }
+        input, select, button {
+            padding: 6px; 
+            border: 1px solid #929292;
+            border-radius: 5555px;
+            font-size: 14px; 
+        }
+        button {
+            background-color: #093a0b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #074d0b;
+            transform: translateY(-2px);
+        }
+        table {
+            width: 100%; 
+            border-collapse: collapse;
+            margin: auto; 
+            font-size: 14px; 
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 4px; 
+            text-align: left;
+        }
+        th {
+            background-color: #216623;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .delete-button {
+            background-color: #f44336; 
+            border: none;
+            color: white;
+            padding: 2px 4px; 
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .delete-button:hover {
+            background-color: #c62828; 
+        }
+        #export-button {
+            margin-top: 20px;
+            padding: 6px; 
+            font-size: 14px; 
+            background-color: #154b18;
+            color: rgb(253, 247, 247);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #export-button:hover {
+            background-color: #2e7d32;
+            transform: translateY(-2px);
+        }
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-container input {
+            width: 300px; 
+            height: 40px; 
+            border: 1px solid #ccc;
+            border-radius: 20px; 
+            padding-left: 40px; 
+            font-size: 16px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: width 0.4s ease;
+        }
+        .search-container input:focus {
+            width: 400px; 
+            outline: none; 
+            border-color: #388e3c; 
+        }
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            color: #888; 
+            pointer-events: none; 
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 10px; 
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column; 
+        }
+        .cinta {
+            background-color: #3cafaf;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .cinta::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: #e6aabb;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="cinta"></div>
+    <center>
+        <h1>CAJA CHICA<br> Sra. Nydian Fuentes</h1>
+        <button class="restart-button" onclick="location.reload()"></button>
+    </center>
+    <div class="description">
+        <p>Esta página permite registrar y gestionar las transacciones de caja chica, facilitando un control efectivo de los gastos.</p>
+    </div>
+
+    <nav>
+        <button onclick="showTab('formTab')"><i class="fas fa-plus"></i> Formulario</button>
+        <button onclick="showTab('tableTab')"><i class="fas fa-table"></i> Hoja Excel</button>
+    </nav>
+
+    <div class="container">
+        <div id="formTab" class="tab active">
+            <form id="invoice-form" class="form-grid">
+                <div class="form-group">
+                    <input type="text" id="descripcion" placeholder="Descripción" required>
+                </div>
+                <div class="form-group">
+                    <select id="cuentaMayor" required>
+                        <option value="">Cuenta Mayor</option>
+                        <option value="611">611</option>
+                        <option value="612">612</option>
+                        <option value="613">613</option>
+                        <option value="512">512</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="nombreCuenta" placeholder="Nombre de la Cuenta del Mayor" readonly required>
+                </div>
+                <div class="form-group">
+                    <select id="departamento" required>
+                        <option value="">Departamento</option>
+                        <option value="001">Producción</option>
+                        <option value="002">Administración</option>
+                        <option value="003">Comercialización</option>
+                        <option value="004">Dirección</option>
+                        <option value="005">Finanzas</option>
+                        <option value="105">Empresarial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="area" required>
+                        <option value="">Área</option>
+                        <option value="006">Transporte</option>
+                        <option value="007">Logística</option>
+                        <option value="008">Infraestructura</option>
+                        <option value="009">Papelería y Útiles</option>
+                        <option value="010">Consumo Energético</option>   
+                        <option value="011">Recurso Humano</option>
+                        <option value="012">Implementos y Accesorios</option>
+                        <option value="013">Mezcla</option>
+                <option value="014">Extrusión</option>
+                <option value="015">Impresión</option>
+                <option value="016">Corte</option>
+                <option value="017">Troquelación</option>
+                <option value="018">Reparación y mantenimiento</option>
+                <option value="019">Control de calidad</option>
+                <option value="020">Telecomunicaciones</option>
+                <option value="021">Compras</option>
+                <option value="022">Ventas</option>
+                <option value="023">Mercadeo</option>
+                <option value="024">Despacho</option>
+                <option value="025">Inventario de Repuestos</option>
+                <option value="097">Peletizado</option>
+                <option value="104">Material no Utilizado</option>
+                <option value="108">Vehículos</option>
+                <option value="109">Control de Procesos</option>
+                <option value="127">Empaque</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="sector" required>
+                        <option value="">Sector</option>
+                        <option value="026">Mano de Obra</option>
+                        <option value="027">Servicios</option>
+                        <option value="028">Repuestos de mantenimiento</option>
+                        <option value="029">Repuestos de Reparación</option>
+                        <option value="030">Recurso Humano</option>
+                        <option value="031">Implementos o accesorios</option>
+                        <option value="032">Instalaciones</option>
+                        <option value="033">Remodelaciones</option>
+                        <option value="034">Informática</option>
+                        <option value="035">Redes</option>
+                        <option value="036">Mantenimiento</option>
+                        <option value="037">Vigilancia</option>
+                        <option value="038">Importaciones</option>
+                        <option value="039">Compras Locales</option>
+                        <option value="040">Bodega Principal</option>
+                        <option value="041">Bodega Nueve</option>
+                        <option value="096">Taller</option>
+                        <option value="102">Limpieza General</option>
+                        <option value="103">Disolventes</option>
+                        <option value="106">Inventario de Repuestos</option>
+                        <option value="110">Materia Directa Local</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="division" required>
+                        <option value="">División</option>
+                        <option value="">División</option>
+                        <option value="0093">Extrusora 21</option>
+                        <option value="0094">Extrusora 22</option>
+<option value="042">Mezcladora 1</option>
+<option value="043">Mezcladora 2</option>
+<option value="044">Mezcladora 3</option>
+<option value="045">Extrusora 1</option>
+<option value="046">Extrusora 2</option>
+<option value="047">Extrusora 3</option>
+<option value="048">Extrusora 4</option>
+<option value="049">Extrusora 5</option>
+<option value="050">Extrusora 6</option>
+<option value="051">Extrusora 7</option>
+<option value="052">Extrusora 8</option>
+<option value="053">Extrusora 9</option>
+<option value="054">Extrusora 11</option>
+<option value="055">Extrusora 12</option>
+<option value="056">Extrusora 13</option>
+<option value="057">Extrusora 14</option>
+<option value="058">Extrusora 15</option>
+<option value="059">Extrusora 16</option>
+<option value="060">Extrusora 17</option>
+<option value="061">Extrusora 18</option>
+<option value="062">Extrusora 19</option>
+<option value="063">Extrusora 20</option>
+<option value="064">Impresora 1</option>
+<option value="065">Impresora 2</option>
+<option value="066">Impresora 3</option>
+<option value="067">Fuelladora</option>
+<option value="068">Gabachera 9</option>
+<option value="069">Cortadora 12</option>
+<option value="070">Cortadora 13</option>
+<option value="071">Cortadora 14</option>
+<option value="072">Cortadora 15</option>
+<option value="073">Cortadora 16</option>
+<option value="074">Gabachera 17</option>
+<option value="075">Cortadora 18</option>
+<option value="076">Cortadora 19</option>
+<option value="077">Cortadora 20</option>
+<option value="078">Cortadora 21</option>
+<option value="079">Cortadora 22</option>
+<option value="080">Gabachera 23</option>
+<option value="081">Cortadora 24</option>
+<option value="082">Troquel 1</option>
+<option value="083">Troquel 2</option>
+<option value="084">Troquel 3</option>
+<option value="085">Troquel 4</option>
+<option value="086">Troquel 5</option>
+<option value="087">Peletizadora</option>
+<option value="088">Compresor 1 Ingersoll 15 hp</option>
+<option value="089">Compresor 2 Kaeser 15 hp</option>
+<option value="090">Compresor 3 Kaeser 15 hp</option>
+<option value="091">Compresor 4 Kaeser 30 hp</option>
+<option value="092">Cortadora 25</option>
+<option value="093">Extrusora 21</option>
+<option value="094">Extrusora 22</option>
+<option value="095">Cortadora de Tubos</option>
+<option value="099">Cortadora de Papel</option>
+<option value="107">Inventario de Repuestos</option>
+<option value="111">Camión 1</option>
+<option value="112">Camión 3</option>
+<option value="113">Camión 4</option>
+<option value="114">Camión 5</option>
+<option value="115">Motocicleta Honda</option>
+<option value="116">Montacargas Principal</option>
+<option value="117">Montacarrgas Bodega 9</option>
+<option value="118">Báscula Mezcla F1</option>
+<option value="119">Báscula Mezcla pequeña T2</option>
+<option value="120">Báscula Extrusión F3</option>
+<option value="121">Báscula Extrusión Muestra ES4</option>
+<option value="122">Báscula Impresión F 5</option>
+<option value="123">Báscula Corte 6</option>
+<option value="124">Báscula Corte 7</option>
+<option value="125">Báscula Calidad CAS 8</option>
+<option value="126">Báscula GSC 9</option>
+<option value="128">Elevador 1</option>
+<option value="129">Ventilador Frontal 1</option>
+<option value="130">Extractor Interno 1</option>
+<option value="131">Secador KaeserTCH36 S1050</option>
+<option value="132">Slitter</option>
+<option value="133">Extrusora 23</option>
+<option value="134">Extrusora 24</option>
+<option value="135">Extrusora 25</option>
+<option value="136">Extrusora 26</option>
+<option value="137">Fuelladora 2</option>
+<option value="138">Estampadora 1</option>
+<option value="139">Estampadora 2</option>
+<option value="140">Estampadora 3</option>
+<option value="141">Estampadora 4</option>
+<option value="142">PickUp-Volkswagen, GrisPlatino</option>
+<option value="143">Báscula 10</option>
+<option value="144">Báscula 11</option>
+<option value="145">Báscula 12</option>
+<option value="146">Chiller Modelo MSA-60-RI-220</option>
+<option value="147">Cortadora 26</option>
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="precio" placeholder="Precio" required>
+                </div>
+                <div class="form-group">
+                    <select id="sujetoRetencion" required>
+                        <option value="">Sujeto a Retención</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="tipoArticulo" required>
+                        <option value="">Tipo de Artículo</option>
+                        <option value="material">Bien</option>
+                        <option value="servicio">Servicio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="serieDocumento" placeholder="Serie de Documento" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="numeroDocumento" placeholder="Número de Documento" required>
+                </div>
+                <div class="form-group">
+                    <input type="date" id="fecha" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="nit" placeholder="NIT" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="nombreDocumento" placeholder="Nombre del Documento" required>
+                </div>
+                <button type="submit"><i class="fas fa-plus-circle"></i> Agregar</button>
+            </form>
+        </div>
+
+        <div id="tableTab" class="tab">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar ...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <table id="transactionsTable">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cuenta Mayor</th>
+                        <th>Nombre de la Cuenta</th>
+                        <th>Departamento</th>
+                        <th>Área</th>
+                        <th>Sector</th>
+                        <th>Precio</th>
+                        <th>Tipo de Artículo</th>
+                        <th>NIT</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las transacciones se agregarán aquí -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6" style="text-align: right; font-weight: bold;">Total:</td>
+                        <td id="totalPrice">0</td>
+                        <td colspan="4"></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button id="export-button">Exportar a Excel</button>
+        </div>
+    </div>
+
+    <script>
+        // Script para manejar las pestañas
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Script para manejar el formulario
+        const form = document.getElementById('invoice-form');
+        const transactionsTable = document.getElementById('transactionsTable').getElementsByTagName('tbody')[0];
+        const totalPriceCell = document.getElementById('totalPrice');
+
+        // Mapeo de cuentas
+        const cuentasMap = {
+            "611": "COMERCIALIZACIÓN Y BODEGA",
+            "612": "ADMINISTRACIÓN",
+            "613": "EMPRESARIAL",
+            "512": "PRODUCCIÓN"
+        };
+
+        // Actualiza el campo nombreCuenta al seleccionar cuentaMayor
+        document.getElementById('cuentaMayor').addEventListener('change', function() {
+            const cuentaValue = this.value;
+            document.getElementById('nombreCuenta').value = cuentasMap[cuentaValue] || '';
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const precio = parseFloat(form.precio.value);
+            const newRow = transactionsTable.insertRow();
+            newRow.insertCell(0).innerText = form.descripcion.value;
+            newRow.insertCell(1).innerText = form.cuentaMayor.options[form.cuentaMayor.selectedIndex].text;
+            newRow.insertCell(2).innerText = form.nombreCuenta.value;
+            newRow.insertCell(3).innerText = form.departamento.options[form.departamento.selectedIndex].text;
+            newRow.insertCell(4).innerText = form.area.options[form.area.selectedIndex].text;
+            newRow.insertCell(5).innerText = form.sector.options[form.sector.selectedIndex].text;
+            newRow.insertCell(6).innerText = precio.toFixed(2);
+            newRow.insertCell(7).innerText = form.tipoArticulo.options[form.tipoArticulo.selectedIndex].text;
+            newRow.insertCell(8).innerText = form.nit.value;
+            newRow.insertCell(9).innerText = form.fecha.value;
+
+            const actionsCell = newRow.insertCell(10);
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-button';
+            deleteButton.innerText = 'Eliminar';
+            deleteButton.onclick = function() {
+                transactionsTable.deleteRow(newRow.rowIndex - 1);
+                updateTotalPrice(); // Actualizar total después de eliminar
+            };
+            actionsCell.appendChild(deleteButton);
+
+            form.reset(); // Reinicia el formulario después de enviar
+            updateTotalPrice(); // Actualiza el total después de agregar
+        });
+
+        // Actualiza el total de precios
+        function updateTotalPrice() {
+            let total = 0;
+            const rows = transactionsTable.getElementsByTagName('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                const precio = parseFloat(cells[6].innerText);
+                if (!isNaN(precio)) {
+                    total += precio;
+                }
+            }
+            totalPriceCell.innerText = total.toFixed(2);
+        }
+
+        // Script para el buscador
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('keyup', function() {
+            const filter = searchInput.value.toLowerCase();
+            const rows = transactionsTable.getElementsByTagName('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerText.toLowerCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = found ? '' : 'none';
+            }
+            updateTotalPrice(); // Actualiza el total después de filtrar
+        });
+
+        // Script para exportar a Excel
+        document.getElementById('export-button').addEventListener('click', function() {
+            let table = document.getElementById('transactionsTable');
+            let rows = Array.from(table.rows);
+            let csv = rows.map(row => Array.from(row.cells).map(cell => cell.innerText).join(',')).join('\n');
+            let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            let link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute('download', 'transacciones.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>
